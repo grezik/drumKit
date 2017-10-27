@@ -34,7 +34,7 @@ body {
     color: white;
     background-color: rgba(111, 111, 112, 1);
     background: url(../img/pad-bg-inactive.png) no-repeat center;
-    transition: all .07s ease;
+    transition: all .03s ease;
     text-shadow: 0 0 .5rem black;
     box-shadow: 0 .3rem .2rem rgba(0,0,0,0.7);
 }
