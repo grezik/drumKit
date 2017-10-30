@@ -1,5 +1,5 @@
+/*jshint esversion: 6 */
 document.addEventListener('DOMContentLoaded', function () {
-
 	function playSound(e) {
 		const sound = document.querySelector(`audio[data-key="${e.keyCode}"]`);
 		const pad = document.querySelector(`.pad[data-key="${e.keyCode}"]`);
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	// pads.forEach(pad => pad.addEventListener('transitionend', removeTransition));
 
 	// Unobstrusive event binding
-	pads.forEach(pad => pad.addEventListener('mousedown', function (e) {
+	window.addEventListener('mousedown', function (e) {
 		// store data-key value, a js keyCode paired with a pad to trigger corresponding sound file
 		const keyValue = this.dataset.key;
 
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		sound.play();
 		this.classList.add('playing');
 		console.log(e);
-	}));
+	});
 	pads.forEach(pad => pad.addEventListener("mouseup", function (e) {
 		this.classList.remove('playing');
 		console.log("e: " + e);

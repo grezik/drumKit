@@ -47,11 +47,11 @@ kbd, span {
 }
 
 kbd, .sound {
-	position: absolute;
-	left: .3rem;
 	bottom: .3rem;
-	font-size: 1rem;
 	font-family: sans-serif;
+	font-size: 1rem;
+	left: .3rem;
+	position: absolute;
 }
 
 .sound {
