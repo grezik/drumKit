@@ -1,4 +1,43 @@
 /*jshint esversion: 6 */
+// (function() {
+//     let currEvent;
+
+//     function getEvtType(evt) {
+//         console.group();
+
+//         currEvent = evt.type;
+//         console.log(currEvent);
+
+//         if (currEvent === "touchstart") {
+//             document.querySelector(".event-type").innerHTML = '<p="red">' + currEvent + '</p>';
+//         } else {
+//             document.querySelector(".event-type").innerHTML = '<p>' + currEvent + '</p>';
+//         }
+        
+
+//         console.groupEnd();    
+//     }
+
+//     // keyboard events
+//     document.addEventListener("keypress", getEvtType, false);
+
+//     document.addEventListener("keydown", getEvtType, false);
+//     document.addEventListener("keyup", getEvtType, false);
+
+//     // mouse events
+//     document.addEventListener("click", getEvtType, false);
+
+//     document.addEventListener("mousedown", getEvtType, false);
+//     document.addEventListener("mouseup", getEvtType, false);
+
+//     // touch events
+//     document.addEventListener("touchstart", getEvtType, false);
+//     document.addEventListener("touchend", getEvtType, false);
+//     document.addEventListener("touchmove", getEvtType, false);
+//     document.addEventListener("touchcancel", getEvtType, false);
+
+// })();
+
 document.addEventListener("DOMContentLoaded", function () {
     const playSound = (function(sound) {
         // logs only for testing, they do nothing
@@ -49,9 +88,31 @@ document.addEventListener("DOMContentLoaded", function () {
         playSound(sound);
 
         pad.classList.add('playing');
-    }));
+    }, false));
 
     pads.forEach(pad => pad.addEventListener('mouseup', function () {
         this.classList.remove('playing');
     }));
+
+    
+    pads.forEach(pad => pad.addEventListener('touchstart', function () {
+        const keyValue = this.dataset.key;
+        const sound = document.querySelector(`audio[data-key="${keyValue}"]`);
+
+        if (!sound) return;
+
+        playSound(sound);
+
+        pad.classList.add('playing');
+    }, false));
+
+
+    pads.forEach(pad => pad.addEventListener('touchend', function () {
+        this.classList.remove('playing');
+    }, false));
+
+
+    window.addEventListener('touchstart', function(e) {
+        
+    }, false);
 });

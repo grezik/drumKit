@@ -83,6 +83,18 @@ kbd,
     border: .1rem solid #555454;
 }
 
+.event-type {
+	width: 50rem;
+	margin: 0 auto;
+	margin-top: 5rem;
+	font-size: 2rem;
+}
+.red {
+	color: red;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
 @media (min-width: 501px) {
     body {
     	background-position-x: center;
