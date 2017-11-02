@@ -39,6 +39,22 @@
 // })();
 
 document.addEventListener("DOMContentLoaded", function () {
+    const pads = document.querySelectorAll('.pad');
+    const defaultSounds = {};
+
+    const createDefaultSoundsObj = function () {
+        let audioTags = document.querySelectorAll('audio');
+        for (let i = 0; i < audioTags.length; i++) {
+            let objElemIndex = audioTags[i].dataset.key;
+            console.log(objElemIndex);
+            defaultSounds[objElemIndex] = audioTags[i];
+
+        }
+        console.log(defaultSounds);
+    };
+
+    createDefaultSoundsObj();
+
     const playSound = (function(sound) {
         // logs only for testing, they do nothing
         // if (sound) {
@@ -54,9 +70,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // TODO: set playing class on pad element (ie mark pad as active)
     });
     
-    const pads = document.querySelectorAll('.pad');
 
-
+/* Handle keyboard events */
 	window.addEventListener("keydown", function (e) {
         const sound = document.querySelector(`audio[data-key="${e.keyCode}"]`);
         const pad = document.querySelector(`.pad[data-key="${e.keyCode}"]`);
@@ -65,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         playSound(sound);
         pad.classList.add('playing');
-	});
+	}, false);
 
 
     window.addEventListener("keyup", function (e) {
@@ -74,9 +89,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         pad.classList.remove('playing');
         // dimPad(pad);
-    });
+    }, false);
 
-
+/* Handle mouse events - generates sound after mouseup and it doesn't work in the way I want */
     pads.forEach(pad => pad.addEventListener('mousedown', function (e) {
         // get data-key value, a js keyCode paired
         // with a pad to trigger corresponding sound file
@@ -88,14 +103,21 @@ document.addEventListener("DOMContentLoaded", function () {
         playSound(sound);
 
         pad.classList.add('playing');
+
+        pad.addEventListener('mouseup', function () {
+            this.classList.remove('playing');
+        });
     }, false));
 
-    pads.forEach(pad => pad.addEventListener('mouseup', function () {
-        this.classList.remove('playing');
-    }));
-
     
-    pads.forEach(pad => pad.addEventListener('touchstart', function () {
+/* Handle touch events on mobile devices*/
+    pads.forEach(pad => pad.addEventListener('touchstart', function (e) {
+        if (e.handled === false) return;
+        e.preventDefault();
+        e.handled = true;
+
+        console.log(e.handled);
+
         const keyValue = this.dataset.key;
         const sound = document.querySelector(`audio[data-key="${keyValue}"]`);
 
@@ -104,15 +126,10 @@ document.addEventListener("DOMContentLoaded", function () {
         playSound(sound);
 
         pad.classList.add('playing');
+        pad.addEventListener('touchend', function () {
+            this.classList.remove('playing');
+        });
     }, false));
 
 
-    pads.forEach(pad => pad.addEventListener('touchend', function () {
-        this.classList.remove('playing');
-    }, false));
-
-
-    window.addEventListener('touchstart', function(e) {
-        
-    }, false);
 });
