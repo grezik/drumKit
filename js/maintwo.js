@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
             let objElemIndex = audioTags[i].dataset.key;
             console.log(objElemIndex);
             defaultSounds[objElemIndex] = audioTags[i];
+            console.log(defaultSounds[objElemIndex].src)
 
         }
         console.log(defaultSounds);
